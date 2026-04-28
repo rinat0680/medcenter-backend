@@ -1,3 +1,4 @@
+using MedicalCenterApi;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -33,7 +34,7 @@ builder.Services.AddAuthentication(options =>
         ClockSkew = TimeSpan.Zero // убираем "запас" по времени
     };
 });
-
+builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
