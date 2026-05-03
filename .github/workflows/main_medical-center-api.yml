@@ -18,13 +18,13 @@ jobs:
       - name: Set up .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0.x'   # актуальная версия .NET, вместо "10.x"
+          dotnet-version: '8.0.x'   # актуальная версия .NET
 
       - name: Restore
-        run: dotnet restore ./MedicalCenterApi.sln
+        run: dotnet restore ./MedicalCenter.sln
 
       - name: Build
-        run: dotnet build ./MedicalCenterApi.sln --configuration Release --no-restore
+        run: dotnet build ./MedicalCenter.sln --configuration Release --no-restore
 
       - name: Publish
         run: dotnet publish ./MedicalCenterApi/MedicalCenterApi.csproj -c Release -o "${{env.DOTNET_ROOT}}/myapp"
