@@ -6,6 +6,10 @@
 # dotenv files
 .env
 
+#Postman
+postman/
+.postman/
+
 # User-specific files
 *.rsuser
 *.suo
