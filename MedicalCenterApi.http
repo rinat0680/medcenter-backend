@@ -1,6 +1,29 @@
 @MedicalCenterApi_HostAddress = http://localhost:5162
 
-GET {{MedicalCenterApi_HostAddress}}/weatherforecast/
+POST {{MedicalCenterApi_HostAddress}}/api/auth/register
 Accept: application/json
+Content-Type: application/json
+{
+  "email": "",
+  "password": ""
+}
+###
 
+POST {{MedicalCenterApi_HostAddress}}/api/auth/login
+Accept: application/json
+Content-Type: application/json
+{
+  "email": "",
+  "userName": "",
+  "password": ""
+}
+###
+
+POST {{MedicalCenterApi_HostAddress}}/api/auth/refresh
+Accept: application/json
+Content-Type: application/json
+{
+  "accessToken": "",
+  "refreshToken": ""
+}
 ###

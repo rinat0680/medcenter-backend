@@ -22,8 +22,8 @@ public class AuthController : ControllerBase
         return Ok(requestDto);
     }
     [HttpPost("refresh")]
-    public IActionResult Refresh()
+    public IActionResult Refresh([FromBody] RefreshTokenRequestDto requestDto)
     {
-        return Ok("Token refreshed");
+        return Ok(requestDto);
     } 
 }
