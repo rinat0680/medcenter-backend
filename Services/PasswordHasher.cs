@@ -1,5 +1,5 @@
 ﻿using MedicalCenterApi.Interfaces;
-
+using BCrypt.Net;
 namespace MedicalCenterApi.Services;
 
 public class PasswordHasher : IPasswordHasher
