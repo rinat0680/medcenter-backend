@@ -29,5 +29,11 @@ public class AuthController : ControllerBase
     {
         var response = await _authService.RefreshAsync(requestDto);
         return Ok(response);
-    } 
+    }
+    [HttpPost("reset-password")]
+    public async Task<IActionResult> ResetPassword([FromBody] ResetRequestDto requestDto)
+    {
+        var response = await _authService.ResetPasswordAsync(requestDto);
+        return Ok(requestDto);
+    }
 }

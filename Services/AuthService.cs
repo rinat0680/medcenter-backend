@@ -118,4 +118,10 @@ public class AuthService : IAuthService
         }
         return response;
     }
+
+    public async Task<ResetResponseDto> ResetPasswordAsync(ResetRequestDto requestDto)
+    {
+        await Task.Delay(500);
+        return new ResetResponseDto();
+    }
 }
