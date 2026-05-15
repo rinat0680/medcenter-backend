@@ -49,8 +49,7 @@ public class AuthService : IAuthService
     public async Task<LoginResponseDto> LoginAsync(LoginRequestDto requestDto)
     {
         var response = new LoginResponseDto();
-        var user = await _appDbContext.users.FirstOrDefaultAsync(u => u.Email == requestDto.Email);
-        if (user == null) user = await _appDbContext.users.FirstOrDefaultAsync(u => u.Username == requestDto.Username);
+        var user = await _appDbContext.users.FirstOrDefaultAsync(u => (u.Email == requestDto.Email)||(u.Username == requestDto.Username));
         if (user == null)
         {
             response.Code = 1;
