@@ -1,5 +1,4 @@
-﻿using MedicalCenterApi.Interfaces;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace MedicalCenterApi;
 
@@ -7,33 +6,24 @@ namespace MedicalCenterApi;
 [Route("api/[controller]")]
 public class AuthController : ControllerBase
 {
-    private readonly IAuthService _authService;
-    public AuthController(IAuthService authService)
-    {
-        _authService = authService;
+    private readonly ITokenService _tokenService;
+    public AuthController(ITokenService tokenService)
+    {  
+        _tokenService = tokenService; 
     }
     [HttpPost("register")]
-    public async Task<IActionResult> RegisterAsync([FromBody] RegisterRequestDto requestDto)
+    public IActionResult Register([FromBody] RegisterRequestDto requestDto)
     {
-        var response = await _authService.RegisterAsync(requestDto);
-        return Ok(response);
-    }
-    [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] LoginRequestDto requestDto)
-    {
-        var response = await _authService.LoginAsync(requestDto);
-        return Ok(response);
-    }
-    [HttpPost("refresh")]
-    public async Task<IActionResult> Refresh([FromBody] RefreshTokenRequestDto requestDto)
-    {
-        var response = await _authService.RefreshAsync(requestDto);
-        return Ok(response);
-    }
-    [HttpPost("reset-password")]
-    public async Task<IActionResult> ResetPassword([FromBody] ResetRequestDto requestDto)
-    {
-        var response = await _authService.ResetPasswordAsync(requestDto);
         return Ok(requestDto);
     }
+    [HttpPost("login")]
+    public IActionResult Login([FromBody] LoginRequestDto requestDto)
+    {
+        return Ok(requestDto);
+    }
+    [HttpPost("refresh")]
+    public IActionResult Refresh([FromBody] RefreshTokenRequestDto requestDto)
+    {
+        return Ok(requestDto);
+    } 
 }
