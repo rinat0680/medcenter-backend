@@ -1,5 +1,4 @@
-﻿using MedicalCenterApi.Entities;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -13,15 +12,6 @@ public class TokenService : ITokenService
     public TokenService(IConfiguration config)
     {
         _config = config;
-    }
-
-    public IEnumerable<Claim> GetClaimsForUser(User user)
-    {
-        return new List<Claim>
-        {
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new Claim(ClaimTypes.Role, user.IsAdmin ? "Admin" : "User")
-        };
     }
     public string GenerateAccessToken(IEnumerable<Claim> claims)
     {
@@ -52,7 +42,7 @@ public class TokenService : ITokenService
         return Convert.ToBase64String(randomNumber);
     }
 
-    public ClaimsPrincipal? GetUserClaimsFromAccessToken(string token)
+    public ClaimsPrincipal GetUserClaimsFromAccessToken(string token)
     {
         var tokenValidationParameters = new TokenValidationParameters
         {
@@ -79,7 +69,7 @@ public class TokenService : ITokenService
         if (securityToken is not JwtSecurityToken jwtToken ||
             !jwtToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
         {
-            return null;
+            throw new SecurityTokenException("Invalid token");
         }
 
         return principal;
