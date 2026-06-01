@@ -1,4 +1,5 @@
 ﻿using MedicalCenterApi.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MedicalCenterApi;

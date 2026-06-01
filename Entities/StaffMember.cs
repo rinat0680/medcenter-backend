@@ -10,7 +10,7 @@ public class StaffMember
     public int Sex { get; set; } = 0; // 0 - undefined, 1-male, 2-female
     public string Firstname { get; set; } = string.Empty;
     public string Lastname { get; set; } = string.Empty;
-    public string Specialization = string.Empty;
-    public string Position = string.Empty;
-    public string ContactNumber = string.Empty;
+    public string Specialization { get; set; } = string.Empty;
+    public string Position { get; set; } = string.Empty;
+    public string ContactNumber { get; set; } = string.Empty;
 }
