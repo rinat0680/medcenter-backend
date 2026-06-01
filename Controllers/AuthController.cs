@@ -37,4 +37,10 @@ public class AuthController : ControllerBase
         var response = await _authService.ResetPasswordAsync(requestDto);
         return Ok(requestDto);
     }
+    [Authorize]
+    [HttpGet("check-token")]
+    public async Task<IActionResult> CheckToken()
+    {
+        return Ok();
+    }
 }
