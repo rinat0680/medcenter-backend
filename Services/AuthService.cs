@@ -19,29 +19,21 @@ public class AuthService : IAuthService
     }
     public async Task<RegisterResponseDto> RegisterAsync(RegisterRequestDto requestDto)
     {
-        RegisterResponseDto response = new RegisterResponseDto
-        {
-            Email = requestDto.Email,
-        };
-
         if (await _appDbContext.Users.AnyAsync(u => u.Email == requestDto.Email))
         {
-            response.Code = 1;
-            response.Message = "Email already exists";
-            return response;
+            return new RegisterResponseDto { Code = 1, Message = "email already exists" };
         }
 
         var user = new User
         {
-            Id = Guid.NewGuid(),
             Email = requestDto.Email,
             Password = _hasher.Hash(requestDto.Password)
         };
-        response.Id = user.Id;
+
         _appDbContext.Users.Add(user);
         await _appDbContext.SaveChangesAsync();
 
-        return response;
+        return new RegisterResponseDto { Code = 0, Id = user.Id ,Email = user.Email };
     }
     
     public async Task<LoginResponseDto> LoginAsync(LoginRequestDto requestDto)
@@ -49,18 +41,10 @@ public class AuthService : IAuthService
         var response = new LoginResponseDto();
         var user = await _appDbContext.Users.FirstOrDefaultAsync(u => (u.Email == requestDto.Email)||(u.Username == requestDto.Username));
         if (user == null)
-        {
-            response.Code = 1;
-            response.Message = "User not found";
-            return response;
-        }
+            return new LoginResponseDto { Code = 1, Message = "user not found" };
 
         if (!_hasher.Verify(requestDto.Password, user.Password))
-        {
-            response.Code = 1;
-            response.Message = "Wrong credentials";
-            return response;
-        }
+            return new LoginResponseDto { Code = 1, Message = "wrong password or email/username" };
 
         IEnumerable<Claim> claims = _tokenService.GetClaimsForUser(user);
         response.AccessToken = _tokenService.GenerateAccessToken(claims);
@@ -68,6 +52,7 @@ public class AuthService : IAuthService
         var token = await _appDbContext.RefreshTokens.FirstOrDefaultAsync(t => t.UserId == user.Id);
         if (token == null)
         {
+            
             var refreshToken = new RefreshToken
             {
                 UserId = user.Id,
@@ -82,6 +67,7 @@ public class AuthService : IAuthService
         token.ExpiresAt = DateTime.UtcNow.AddDays(7);
         await _appDbContext.SaveChangesAsync();
         return response;
+        ;
     }
     public async Task<RefreshTokenResponseDto> RefreshAsync(RefreshTokenRequestDto requestDto)
     {
