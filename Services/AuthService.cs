@@ -10,13 +10,11 @@ public class AuthService : IAuthService
 {
     private readonly IPasswordHasher _hasher;
     private readonly ITokenService _tokenService;
-    private readonly IAuthMapperService _mapperService;
     private readonly AppDbContext _appDbContext;
-    public AuthService(IPasswordHasher hasher, ITokenService tokenService, IAuthMapperService mapperService, AppDbContext appDbContext)
+    public AuthService(IPasswordHasher hasher, ITokenService tokenService, AppDbContext appDbContext)
     {
         _hasher = hasher;
         _tokenService = tokenService;
-        _mapperService = mapperService;
         _appDbContext = appDbContext;
     }
     public async Task<RegisterResponseDto> RegisterAsync(RegisterRequestDto requestDto)
@@ -118,9 +116,5 @@ public class AuthService : IAuthService
         return response;
     }
 
-    public async Task<ResetResponseDto> ResetPasswordAsync(ResetRequestDto requestDto)
-    {
-        await Task.Delay(500);
-        return new ResetResponseDto();
-    }
+ 
 }
