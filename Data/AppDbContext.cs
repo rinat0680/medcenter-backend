@@ -10,6 +10,7 @@ public class AppDbContext : DbContext
 
     public DbSet<Patient> Patients { get; set; }
     public DbSet<StaffMember> StaffMembers { get; set; }
+    public DbSet<Service> Services { get; set; }
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
     {
