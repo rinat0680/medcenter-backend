@@ -31,7 +31,7 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(key),
 
-        ClockSkew = TimeSpan.Zero // убираем "запас" по времени
+        ClockSkew = TimeSpan.Zero
     };
 });
 builder.Services.AddScoped<ITokenService, TokenService>();
@@ -39,6 +39,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<ServiceRequestHandler>();
 
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
