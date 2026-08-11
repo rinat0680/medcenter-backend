@@ -31,7 +31,7 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(key),
 
-        ClockSkew = TimeSpan.Zero // убираем "запас" по времени
+        ClockSkew = TimeSpan.Zero
     };
 });
 builder.Services.AddScoped<ITokenService, TokenService>();
