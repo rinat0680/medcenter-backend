@@ -3,6 +3,7 @@ using System;
 using MedicalCenterApi;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MedicalCenterApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260731050223_ServiceEntity")]
+    partial class ServiceEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -123,7 +126,7 @@ namespace MedicalCenterApi.Migrations
                     b.ToTable("refresh_tokens", (string)null);
                 });
 
-            modelBuilder.Entity("MedicalCenterApi.ServiceDomain.Service", b =>
+            modelBuilder.Entity("MedicalCenterApi.Service", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -133,49 +136,21 @@ namespace MedicalCenterApi.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("character varying(1000)");
+                        .HasColumnType("text");
 
                     b.Property<TimeSpan>("Duration")
                         .HasColumnType("interval");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                        .HasColumnType("text");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("numeric");
 
                     b.HasKey("Id");
 
-                    b.ToTable("services", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Осмотр врача, сбор анамнеза, рекомендации",
-                            Duration = new TimeSpan(0, 0, 30, 0, 0),
-                            Name = "Первичная консультация",
-                            Price = 50.00m
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Ультразвуковое исследование органов брюшной полости",
-                            Duration = new TimeSpan(0, 0, 45, 0, 0),
-                            Name = "УЗИ органов брюшной полости",
-                            Price = 120.00m
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "Общий клинический анализ крови",
-                            Duration = new TimeSpan(0, 0, 10, 0, 0),
-                            Name = "Анализ крови общий",
-                            Price = 20.00m
-                        });
+                    b.ToTable("Services");
                 });
 
             modelBuilder.Entity("MedicalCenterApi.StaffMember", b =>
