@@ -15,7 +15,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.HasKey(u => u.Id);
 
         // Поля
-        builder.Property(u => u.Username).IsRequired().HasMaxLength(100);
+        builder.Property(u => u.Username).HasMaxLength(100);
 
         builder.Property(u => u.Password).IsRequired().HasMaxLength(256);
 
